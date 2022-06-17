@@ -37,8 +37,8 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: messengerKey,
       debugShowCheckedModeBanner: false,
-      title: 'UNLA',
-      initialRoute: "login",
+      title: 'Pokemon',
+      initialRoute: "loading",
       routes: getapplicationRoutes(),
       theme: ThemeData(
           //color del la vista morado letras

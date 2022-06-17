@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poke/src/paginas/loading_page.dart';
 import 'package:poke/src/paginas/login_pages.dart';
 
 import '../paginas/detail_screen.dart';
@@ -9,6 +10,7 @@ Map<String, WidgetBuilder> getapplicationRoutes() {
     'home': (BuildContext context) => const HomePage(),
     'login': (BuildContext context) => const LoginPage(),
     'detail': (BuildContext context) => const DetailScreen(),
+    'loading': (BuildContext context) => const LoadingPage(),
   };
 
   return rutas;

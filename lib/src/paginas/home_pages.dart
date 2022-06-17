@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:poke/src/models/pokemonmodels.dart';
 
 import '../providers/info_provider.dart';
+import '../sharepreference/pref_user.dart';
 
 class HomePage extends StatefulWidget {
   static const String routName = 'home';
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _pokemon = InfoPorvider();
+  final pref = PreferenciasUsuario();
   @override
   void initState() {
     super.initState();
@@ -21,49 +23,86 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //var height = MediaQuery.of(context).size.height;
+    var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     //return final headlines = Provider.of<NewsService>(context).headlines;
     return Scaffold(
-      appBar: null,
-      body: Card(
-        margin: const EdgeInsets.all(20),
-        clipBehavior: Clip.antiAlias,
-        semanticContainer: true,
-        //clipBehavior: Clip.antiAliasWithSaveLayer,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white10,
+      ),
+      body: SizedBox(
+        height: height / 1.2,
+        child: Card(
+          margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          clipBehavior: Clip.antiAlias,
+          semanticContainer: true,
+          //clipBehavior: Clip.antiAliasWithSaveLayer,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
 
-        elevation: 6,
-        child: Stack(alignment: Alignment.center, children: [
-          Positioned(
-            top: 0,
-            right: -50,
-            child: Image.asset(
-              'assets/images/logo/pokeball.png',
-              width: 200,
-              fit: BoxFit.fitWidth,
+          elevation: 6,
+          child: Stack(alignment: Alignment.center, children: [
+            Positioned(
+              top: 40,
+              left: 5,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        pref.disconnect();
+                        Navigator.pushReplacementNamed(context, 'login');
+                      }),
+                  IconButton(
+                      icon: const Icon(
+                        Icons.menu,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                ],
+              ),
             ),
-          ),
-          Positioned(
-              top: 100,
-              left: 20,
-              child: Text(
-                'Pokedex',
-                style: TextStyle(
-                  color: Colors.black.withOpacity(0.6),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
-              )),
-          Positioned(
-            top: 0,
-            child: SizedBox(
-              height: 150,
-              width: width,
+            Positioned(
+              top: 0,
+              right: -50,
+              child: Image.asset(
+                'assets/images/logo/pokeball.png',
+                width: 200,
+                fit: BoxFit.fitWidth,
+              ),
             ),
-          ),
-          _cargaPokemon(context)
-        ]),
+            Positioned(
+                top: 100,
+                left: 20,
+                child: Text(
+                  'Pokedex',
+                  style: TextStyle(
+                    color: Colors.black.withOpacity(0.6),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                )),
+            Positioned(
+              top: 0,
+              child: SizedBox(
+                height: 150,
+                width: width,
+              ),
+            ),
+            _cargaPokemon(context)
+          ]),
+        ),
       ),
       floatingActionButton: const FloatingActionButton(
         onPressed: null,

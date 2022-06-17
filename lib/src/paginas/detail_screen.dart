@@ -23,25 +23,16 @@ class _DetailScreen extends State<DetailScreen> {
     final PokemonElement pokemonInfo =
         ModalRoute.of(context)!.settings.arguments as PokemonElement;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: colorPok(pokemonInfo.type![0]),
+      ),
       backgroundColor: colorPok(pokemonInfo.type![0]),
       body: Stack(
         alignment: Alignment.center,
         children: [
           Positioned(
-            top: 40,
-            left: 5,
-            child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                  size: 20,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-          ),
-          Positioned(
-              top: 70,
+              top: 0,
               left: 20,
               right: 20,
               child: Row(
@@ -66,7 +57,7 @@ class _DetailScreen extends State<DetailScreen> {
                 ],
               )),
           Positioned(
-              top: 110,
+              top: 40,
               left: 22,
               child: Container(
                 decoration: BoxDecoration(
@@ -82,7 +73,7 @@ class _DetailScreen extends State<DetailScreen> {
                 ),
               )),
           Positioned(
-            top: height * 0.18,
+            top: height * 0.03,
             right: -30,
             child: Image.asset(
               'assets/images/logo/pokeball.png',
@@ -297,7 +288,7 @@ class _DetailScreen extends State<DetailScreen> {
             ),
           ),
           Positioned(
-            top: (height * 0.2),
+            top: 55,
             left: (width / 2) - 100,
             child: Hero(
               tag: pokemonInfo.id.toString(),

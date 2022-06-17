@@ -14,6 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool? checkGuardarDatos = false;
+  bool isLoading = false;
   final pref = PreferenciasUsuario();
   @override
   void initState() {
@@ -119,23 +120,34 @@ class _LoginPageState extends State<LoginPage> {
                                   stream: bloc.formValidStream,
                                   builder: (BuildContext context,
                                       AsyncSnapshot snapshot) {
-                                    return FloatingActionButton(
-                                      onPressed: () {
-                                        ////ingresar
-                                        check = pref.check;
-                                        if (check!) {
-                                          pref.usuario = bloc.email;
-                                          pref.pass = bloc.pass;
-                                        }
-                                        Navigator.pushReplacementNamed(
-                                            context, HomePage.routName);
-                                      },
-                                      backgroundColor: pageColor,
-                                      child: const Icon(
-                                        Icons.arrow_forward,
-                                        color: Colors.white,
-                                      ),
-                                    );
+                                    return snapshot.data != null
+                                        ? FloatingActionButton(
+                                            onPressed: () {
+                                              ////ingresar
+                                              FocusScope.of(context)
+                                                  .unfocus(); //quita el teclado
+                                              check = pref.check;
+                                              if (check!) {
+                                                pref.usuario = bloc.email;
+                                                pref.pass = bloc.pass;
+                                              }
+                                              Navigator.pushReplacementNamed(
+                                                  context, HomePage.routName);
+                                            },
+                                            backgroundColor: pageColor,
+                                            child: const Icon(
+                                              Icons.arrow_forward,
+                                              color: Colors.white,
+                                            ),
+                                          )
+                                        : FloatingActionButton(
+                                            onPressed: null,
+                                            backgroundColor: pageColor.shade100,
+                                            child: const Icon(
+                                              Icons.close,
+                                              color: Colors.white,
+                                            ),
+                                          );
                                   }),
                               const SizedBox(
                                 height: 16.0,
@@ -300,20 +312,4 @@ class _LoginPageState extends State<LoginPage> {
           );
         });
   }
-
-  /*_login(LoginBloc bloc, BuildContext context) async {
-    Map info = await usuarioProvider.login(bloc.email, bloc.pass);
-
-    if (info['ok'] && info['mensaje'] == "408") {
-      //setState(() => isLoading = false);
-      //sinconexion(context);
-    } else {
-      if (info['ok']) {
-        Navigator.pushReplacementNamed(context, 'loading');
-      } else {
-        // setState(() => isLoading = false);
-        //mostrarAlerta(context, info['mensaje']);
-      }
-    }
-  }*/
 }

@@ -4,12 +4,12 @@ import 'dart:async';
 class Validators {
   final validarEmail =
       StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
-    Pattern pattern = r'^([0-9])*$';
+    Pattern pattern = r'^([0-9]{5})*$';
     RegExp regExp = RegExp(pattern as String);
     if (regExp.hasMatch(email)) {
       sink.add(email);
     } else {
-      sink.addError('El numero de control no es correcto');
+      sink.addError('El usuario no es correcto');
     }
   });
 
