@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:poke/src/models/pokemonmodels.dart';
+import 'package:poke/src/providers/db_provider.dart';
 
 import '../providers/info_provider.dart';
 import '../sharepreference/pref_user.dart';
@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     //return final headlines = Provider.of<NewsService>(context).headlines;
+    DBProvider.db.database;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -104,9 +105,11 @@ class _HomePageState extends State<HomePage> {
           ]),
         ),
       ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.format_align_justify),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, 'equipos');
+        },
+        child: const Icon(Icons.format_align_justify),
       ),
     );
   }
@@ -204,18 +207,13 @@ class _HomePageState extends State<HomePage> {
                   right: 5,
                   child: Hero(
                     tag: index,
-                    child: pokedex.img == null
-                        ? const Image(
-                            image: AssetImage('assets/images/new/no-image.png'),
-                          )
-                        : CachedNetworkImage(
-                            fadeInDuration: const Duration(milliseconds: 100),
-                            imageUrl: pokedex.img.toString(),
-                            height: 100,
-                            fit: BoxFit.fitHeight,
-                            placeholder: (context, url) => const Center(
-                                  child: CircularProgressIndicator(),
-                                )),
+                    child: CachedNetworkImage(
+                        imageUrl: pokedex.img.toString(),
+                        height: 100,
+                        fit: BoxFit.fitHeight,
+                        placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(),
+                            )),
                   ),
                 ),
                 Positioned(

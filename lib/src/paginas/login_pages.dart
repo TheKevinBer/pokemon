@@ -111,7 +111,8 @@ class _LoginPageState extends State<LoginPage> {
                                 onChanged: (value) {
                                   setState(() {
                                     checkGuardarDatos = value!;
-                                    pref.check == value;
+                                    check = value;
+                                    pref.check = value;
                                   });
                                 },
                                 secondary: const Icon(Icons.safety_check),
