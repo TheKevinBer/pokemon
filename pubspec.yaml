@@ -44,9 +44,18 @@ dependencies:
   dio: ^4.0.6
   stacked_card_carousel: ^0.0.3-nullsafety.1
   awesome_dialog: ^2.2.1
+  
 dev_dependencies:
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.3
+  
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo/pokebal0.png"
+  adaptive_icon_background: "assets/images/logo/pokebal0.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
