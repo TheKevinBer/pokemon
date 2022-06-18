@@ -24,7 +24,8 @@ class InfoPorvider {
     return informac;
   }
 
-  Future<List<PokemonElement>> cargarequipoPokemon(int id) async {
+  Future<List<PokemonElement>> cargarequipoPokemon(dynamic equipo) async {
+    //print(equipo);
     /*\
     var url = Uri.https('raw.githubusercontent.com',
         '/Biuni/PokemonGO-Pokedex/master/pokedex.json');
@@ -39,7 +40,14 @@ class InfoPorvider {
     if (resp.statusCode != 200) return [];
     for (var inforh in data) {
       final infoTemp = PokemonElement.fromJson(inforh);
-      informac.add(infoTemp);
+      if (equipo['poc1'] == infoTemp.id ||
+          equipo['poc2'] == infoTemp.id ||
+          equipo['poc3'] == infoTemp.id ||
+          equipo['poc4'] == infoTemp.id ||
+          equipo['poc5'] == infoTemp.id ||
+          equipo['poc6'] == infoTemp.id) {
+        informac.add(infoTemp);
+      }
     }
     return informac;
   }

@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
     var width = MediaQuery.of(context).size.width;
     //return final headlines = Provider.of<NewsService>(context).headlines;
     DBProvider.db.database;
+    DBProvider.db.getTodosLosScans();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                         size: 20,
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.pushNamed(context, 'equipoview');
                       }),
                 ],
               ),
@@ -129,7 +130,6 @@ class _HomePageState extends State<HomePage> {
                 AsyncSnapshot<List<PokemonElement>> snapshot) {
               if (snapshot.hasData) {
                 final infoc = snapshot.data;
-                //_pref.nummsg = infoc.length;
                 return Column(
                   children: [
                     Expanded(

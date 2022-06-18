@@ -10,6 +10,7 @@ void main() async {
   final prefs = PreferenciasUsuario();
   //para ingresar
   await prefs.initPrefs();
+  //ChangeNotifierProvider(create: (_) => ScanListProvider());
   runApp(const MyApp());
 }
 

@@ -18,6 +18,8 @@ class DBProvider {
     return _database;
   }
 
+  List<dynamic> scans = [];
+
   Future<Database> initDB() async {
     // Path de donde almacenaremos la base de datos
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -42,12 +44,12 @@ CREATE TABLE equipo (
 
   Future<int?> insert(String nombre, List<dynamic> pokemon) async {
     final db = await database;
-    //print(pokemon[1]);
+    //print(pokemon);
     final res = await db?.rawInsert('''
       INSERT INTO equipo(nombre, poc1,poc2,poc3,poc4,poc5,poc6 )
         VALUES('$nombre', ${pokemon[0]}, ${pokemon[1]}, ${pokemon[2]}, ${pokemon[3]}, ${pokemon[4]}, ${pokemon[5]})
     ''');
-
+    scans = [res];
     return res;
   }
 
@@ -56,7 +58,24 @@ CREATE TABLE equipo (
     final res = await db?.rawQuery('''
       SELECT * FROM equipo    
     ''');
-    print(res);
+    //scans = [res];
+    return res;
+  }
+
+  Future<List<dynamic>> getTodosLosScans() async {
+    final db = await database;
+    final res = await db!.query('equipo');
+    scans = res;
+    //print(scans);
+    return res;
+  }
+
+  Future<int> deleteEquipo(int id) async {
+    //print(id);
+    final db = await database;
+    final res = await db!.delete('equipo', where: 'id = ?', whereArgs: [id]);
+    //final res2 = await db.query('equipo');
+    //scans = res2;
     return res;
   }
 
