@@ -48,7 +48,8 @@ class _HomePageState extends State<HomePage> {
           elevation: 6,
           child: Stack(alignment: Alignment.center, children: [
             Positioned(
-              top: 40,
+              width: width / 1.2,
+              top: 45,
               left: 5,
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Positioned(
-              top: 0,
+              top: -30,
               right: -50,
               child: Image.asset(
                 'assets/images/logo/pokeball.png',
