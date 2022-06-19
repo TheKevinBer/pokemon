@@ -13,7 +13,7 @@ class EquipoView extends StatefulWidget {
 class _EquipoViewState extends State<EquipoView> {
   final _pokemon = InfoPorvider();
   final db = DBProvider.db;
-  final snacdb = DBProvider.db.scans;
+
   @override
   void initState() {
     super.initState();
@@ -23,6 +23,7 @@ class _EquipoViewState extends State<EquipoView> {
   Widget build(BuildContext context) {
     //var height = MediaQuery.of(context).size.height;
     //var width = MediaQuery.of(context).size.width;
+    final snacdb = DBProvider.db.scans;
     return Scaffold(
         appBar: AppBar(
           title: const Text('This is your new team'),
