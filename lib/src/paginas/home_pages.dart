@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           elevation: 6,
           child: Stack(alignment: Alignment.center, children: [
             Positioned(
-              width: width / 1.2,
+              width: width / 1.9,
               top: 45,
               left: 5,
               child: Row(
