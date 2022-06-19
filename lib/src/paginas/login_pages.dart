@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                               CheckboxListTile(
                                 value: checkGuardarDatos,
                                 title: const Text(
-                                  'Guardar mis credenciales',
+                                  'Save my login',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,

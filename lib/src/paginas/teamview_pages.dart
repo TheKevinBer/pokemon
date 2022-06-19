@@ -46,7 +46,7 @@ class _EquipoViewState extends State<EquipoView> {
                         Container(
                           margin: const EdgeInsets.all(5),
                           child: Text(
-                            'Team ${snacdb[i]['nombre']}',
+                            'Team: ${snacdb[i]['nombre']}',
                             style: const TextStyle(
                               fontFamily: "Open Sans",
                               fontSize: 25,
