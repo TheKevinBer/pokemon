@@ -18,6 +18,7 @@ class DBProvider {
     return _database;
   }
 
+  bool validainsert = false;
   List<dynamic> scans = [];
 
   Future<Database> initDB() async {
@@ -44,12 +45,12 @@ CREATE TABLE equipo (
 
   Future<int?> insert(String nombre, List<dynamic> pokemon) async {
     final db = await database;
-    //print(pokemon);
+    //print(pokemon[1]);
     final res = await db?.rawInsert('''
       INSERT INTO equipo(nombre, poc1,poc2,poc3,poc4,poc5,poc6 )
         VALUES('$nombre', ${pokemon[0]}, ${pokemon[1]}, ${pokemon[2]}, ${pokemon[3]}, ${pokemon[4]}, ${pokemon[5]})
     ''');
-    scans = [res];
+    validainsert = true;
     return res;
   }
 
@@ -71,11 +72,11 @@ CREATE TABLE equipo (
   }
 
   Future<int> deleteEquipo(int id) async {
-    //print(id);
     final db = await database;
     final res = await db!.delete('equipo', where: 'id = ?', whereArgs: [id]);
     //final res2 = await db.query('equipo');
     //scans = res2;
+    //scans.removeAt(index)
     return res;
   }
 

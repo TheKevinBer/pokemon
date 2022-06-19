@@ -5,6 +5,7 @@ import 'package:stacked_card_carousel/stacked_card_carousel.dart';
 
 import '../providers/db_provider.dart';
 import '../providers/info_provider.dart';
+import '../widgets/alertas.dart';
 
 class EquipoPages extends StatefulWidget {
   static const String routName = 'equipos';
@@ -278,10 +279,11 @@ class _EquipoPagesState extends State<EquipoPages> {
                         ElevatedButton(
                           child: const Text('Save'),
                           onPressed: () {
+                            FocusScope.of(context).unfocus();
                             DBProvider.db.insert(teamname.text, _saved);
-                            //_saved.clear();
-                            DBProvider.db.scans;
                             Navigator.of(context).pop();
+                            alerteSave(context, Icons.check_circle,
+                                'Your team is saved successfully.');
                           },
                         )
                       ],

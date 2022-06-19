@@ -23,11 +23,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    DBProvider.db.scans;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     //return final headlines = Provider.of<NewsService>(context).headlines;
     DBProvider.db.database;
     DBProvider.db.getTodosLosScans();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -70,7 +72,8 @@ class _HomePageState extends State<HomePage> {
                         size: 20,
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, 'equipoview');
+                        Navigator.pushNamed(context, 'equipoview',
+                            arguments: DBProvider.db.scans);
                       }),
                 ],
               ),
@@ -228,7 +231,10 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(
                           left: 10.0, right: 10, top: 5, bottom: 5),
                       child: Text(
-                        "${pokedex.type}",
+                        pokedex.type
+                            .toString()
+                            .replaceAll("[", "")
+                            .replaceAll("]", ""),
                         style: const TextStyle(color: Colors.white, shadows: [
                           BoxShadow(
                               color: Colors.blueGrey,
@@ -246,16 +252,11 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     "${pokedex.name}",
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white,
-                        shadows: [
-                          BoxShadow(
-                              color: Colors.blueGrey,
-                              offset: Offset(0, 0),
-                              spreadRadius: 1.0,
-                              blurRadius: 15)
-                        ]),
+                      fontFamily: "Open Sans",
+                      fontSize: 25,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
               ],

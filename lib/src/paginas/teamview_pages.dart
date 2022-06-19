@@ -12,8 +12,8 @@ class EquipoView extends StatefulWidget {
 
 class _EquipoViewState extends State<EquipoView> {
   final _pokemon = InfoPorvider();
-  final List<Widget> equipos = [];
-
+  final db = DBProvider.db;
+  final snacdb = DBProvider.db.scans;
   @override
   void initState() {
     super.initState();
@@ -22,41 +22,42 @@ class _EquipoViewState extends State<EquipoView> {
   @override
   Widget build(BuildContext context) {
     //var height = MediaQuery.of(context).size.height;
-    //var width = MediaQuery.of(context).size.width;;
-    final snacdb = DBProvider.db;
-
+    //var width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           title: const Text('This is your new team'),
         ),
-        body: ListView.builder(
-            itemCount: snacdb.scans.length,
-            itemBuilder: (context, i) => Column(
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/logo/pokeball.png'),
+                  fit: BoxFit.cover)),
+          child: ListView.builder(
+              itemCount: snacdb.length,
+              itemBuilder: (context, i) {
+                return Column(
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          snacdb.scans[i]['nombre'],
-                          style: const TextStyle(
-                            fontFamily: "Open Sans",
-                            fontSize: 15,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w800,
+                        Container(
+                          margin: const EdgeInsets.all(5),
+                          child: Text(
+                            'Team ${snacdb[i]['nombre']}',
+                            style: const TextStyle(
+                              fontFamily: "Open Sans",
+                              fontSize: 25,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              //Navigator.pushNamed(context, 'equipoview');
-                              //snacdb.deleteEquipo(snacdb.scans[i]['id']);
-                            },
-                            icon: const Icon(Icons.delete))
+                        )
                       ],
                     ),
                     FutureBuilder(
-                      future: _pokemon.cargarequipoPokemon(snacdb.scans[i]),
+                      future: _pokemon.cargarequipoPokemon(snacdb[i]),
                       builder: (BuildContext context,
                           AsyncSnapshot<List<PokemonElement>> snapshot) {
                         if (snapshot.hasData) {
@@ -78,7 +79,9 @@ class _EquipoViewState extends State<EquipoView> {
                       },
                     ),
                   ],
-                )));
+                );
+              }),
+        ));
   }
 
   Widget sqlequipo(PokemonElement pokedex) {
@@ -147,7 +150,10 @@ class _EquipoViewState extends State<EquipoView> {
                 padding: const EdgeInsets.only(
                     left: 10.0, right: 10, top: 5, bottom: 5),
                 child: Text(
-                  "${pokedex.type}",
+                  pokedex.type
+                      .toString()
+                      .replaceAll("[", "")
+                      .replaceAll("]", ""),
                   style: const TextStyle(color: Colors.white, shadows: [
                     BoxShadow(
                         color: Colors.blueGrey,
